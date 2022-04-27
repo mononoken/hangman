@@ -1,9 +1,6 @@
 require_relative 'player'
 
-class Game 
-  attr_reader :word_letters, :word_template
-  attr_writer :word_template
-
+class Game
   INCORRECT_LIMIT = 6
 
   def initialize
