@@ -20,6 +20,8 @@ class Game
   attr_reader :word_letters, :word_template
   attr_writer :word_template
 
+  INCORRECT_LIMIT = 6
+
   def initialize
     @random_word = random_word
     @word_letters = @random_word.split('')
@@ -49,7 +51,7 @@ class Game
       puts 'Guess limit reached.'
       puts "The word was #{@random_word}."
     elsif word_complete?
-      puts "Player wins!"
+      puts 'Player wins!'
       puts "The word was #{@random_word}."
     end
   end
@@ -69,7 +71,7 @@ class Game
   end
 
   def incorrect_limit?
-    @player.incorrect.length == 5
+    @player.incorrect.length == INCORRECT_LIMIT
   end
 
   def word_complete?
