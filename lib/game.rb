@@ -4,11 +4,23 @@ class Game
   INCORRECT_LIMIT = 6
 
   def initialize
+    set_secret_word
+    @player = Player.new
+    reset_previous_choice
+    reset_rounds
+  end
+
+  def set_secret_word
     @random_word = random_word
     @word_letters = @random_word.split('')
     @word_template = Array.new(@word_letters.length, '_')
-    @player = Player.new
+  end
+
+  def reset_previous_choice
     @previous_choice = []
+  end
+
+  def reset_rounds
     @round = 0
   end
 
