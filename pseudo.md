@@ -17,19 +17,19 @@ What are the steps necessary for the desired output? (pseudocode)
 
 - #start_game:
 - Puts #intro to game and #rules
-- Game loads dictionary of words from txt file and stores as #word_list.
-- Game filters #word_list for game criteria
+* Game loads dictionary of words from txt file and stores as #word_list.
+* Game filters #word_list for game criteria
   - Criteria: between 5 and 12 characters long
-- Game uses enumerable to select a random word from the dictionary array.
-- Game stores word as #word_letters
-- Game initializes #word_template array which has length equal to #word_letters. 
+* Game uses enumerable to select a random word from the dictionary array.
+* Game stores word as #word_letters
+* Game initializes #word_template array which has length equal to #word_letters. 
 
 - #play_round:
-- Game puts #word_template on command line in form of '_ _ _ _'
-- Game puts request for #player_input
-- Player gives #player_input in form of letter
-- Game checks if #player_input.valid?
-- player_input.valid? if #player_input is not in #guesses, must be in 'abc...z'
+* Game puts #word_template on command line in form of '_ _ _ _'
+* Game puts request for #player_input
+* Player gives #player_input in form of letter
+* Game checks if #player_input.valid?
+* player_input.valid? if #player_input is not in #guesses, must be in 'abc...z'
   - If valid, game will set #player_input as #valid_guess
   - If invalid, game will reject input, puts 'Invalid input', and request #player_input again.
 - Game checks each item in #word_array to see if it matches #valid_guess.
@@ -40,6 +40,11 @@ What are the steps necessary for the desired output? (pseudocode)
     - if true, end game and puts 'Player wins!'
   - guess_quantity == guess_limit
     - if true, end game and announce 'Player loses.'
+
+Possible classes:
+- Word
+- Player
+- Rules
 
 
 Divide and conquer:
