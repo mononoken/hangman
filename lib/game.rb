@@ -8,6 +8,7 @@ class Game
     @player = Player.new
     reset_previous_choice
     reset_rounds
+    play_game
   end
 
   def set_secret_word
@@ -134,4 +135,4 @@ class Game
   end
 end
 
-Game.new.play_game
+Game.new
