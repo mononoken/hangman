@@ -58,7 +58,11 @@ class Game
 
   def intro_game
     "Welcome to Hangman!\n" \
-    'Guess the letters in the secret word one letter at a time.'
+    "Guess the letters in the secret word to win!\n" \
+    'Player will guess one letter at a time. ' \
+    "Every incorrect guess will count as a penalty.\n" \
+    "If the player reaches #{INCORRECT_LIMIT} penalties, " \
+    'they lose and the game is over.'
   end
 
   def divider
