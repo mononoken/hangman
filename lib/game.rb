@@ -30,6 +30,7 @@ class Game
   end
 
   def play_round
+    puts divider
     @round += 1
     puts announce_round
     puts @random_word #DELETE OR CHEAT
@@ -41,6 +42,7 @@ class Game
   end
 
   def play_game
+    puts intro_game
     play_round until incorrect_limit? || word_complete?
     if incorrect_limit?
       puts 'Game over.'
@@ -50,6 +52,15 @@ class Game
       puts "Player wins!"
       puts "The word was #{@random_word}."
     end
+  end
+
+  def intro_game
+    "Welcome to Hangman!\n" \
+    'Guess the letters in the secret word one letter at a time.'
+  end
+
+  def divider
+    '---------------'
   end
 
   def request_player_guess
@@ -115,3 +126,5 @@ class Game
     word_template.join(' ')
   end
 end
+
+Game.new.play_game
