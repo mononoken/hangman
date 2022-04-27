@@ -26,15 +26,16 @@ class Game
     @word_template = Array.new(@word_letters.length, '_')
     @player = Player.new
     @previous_choice = []
+    @round = 0
   end
 
   def play_round
-    puts 'Initialize round'
-    puts @random_word #DELETE
+    @round += 1
+    puts announce_round
+    puts @random_word #DELETE OR CHEAT
     puts template_string(@word_template)
     puts display_incorrect
-    puts 'Player input letter:'
-    @player.guess = gets.chomp.downcase until valid_letter?(@player.guess)
+    request_player_guess
     @previous_choice.push(@player.guess)
     check_guess
   end
@@ -49,6 +50,11 @@ class Game
       puts "Player wins!"
       puts "The word was #{@random_word}."
     end
+  end
+
+  def request_player_guess
+    puts 'Player input letter:'
+    @player.guess = gets.chomp.downcase until valid_letter?(@player.guess)
   end
 
   def incorrect_limit?
@@ -83,6 +89,10 @@ class Game
 
   def valid_letter?(letter)
     ('a'..'z').to_a.any?(letter) && @previous_choice.none?(letter)
+  end
+
+  def announce_round
+    "Round #{@round}"
   end
 
   def extract_dictionary
