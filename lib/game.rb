@@ -46,6 +46,10 @@ class Game
   def play_game
     puts intro_game
     play_round until incorrect_limit? || word_complete?
+    announce_results
+  end
+
+  def announce_results
     if incorrect_limit?
       puts 'Game over.'
       puts 'Guess limit reached.'
