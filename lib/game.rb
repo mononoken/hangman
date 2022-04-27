@@ -45,7 +45,7 @@ class Game
 
   def play_game
     puts intro_game
-    play_round until incorrect_limit? || word_complete?
+    play_round until end_game?
     announce_results
   end
 
@@ -76,6 +76,10 @@ class Game
   def request_player_guess
     puts 'Player input letter:'
     @player.guess = gets.chomp.downcase until valid_letter?(@player.guess)
+  end
+
+  def end_game?
+    incorrect_limit? || word_complete?
   end
 
   def incorrect_limit?
