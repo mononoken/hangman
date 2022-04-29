@@ -1,7 +1,10 @@
 require_relative 'player'
 require_relative 'secret_word'
+require_relative 'messages'
 
 class Game
+  include Messages
+
   INCORRECT_LIMIT = 6
 
   # Game
@@ -12,7 +15,7 @@ class Game
     play_game
   end
 
-  def request_player_guess
+  def request_player_guessg
     puts 'Player input letter:'
     @player.guess = gets.chomp.downcase until valid_letter?(@player.guess)
   end
@@ -53,14 +56,6 @@ class Game
     @player.incorrect.length == INCORRECT_LIMIT
   end
 
-  def check_guess
-    if guess_correct?(@player.guess)
-      @secret_word.fill_word_template(@player.guess)
-    else
-      @player.log_incorrect
-    end
-  end
-
   def guess_correct?(guess)
     @secret_word.word_letters.any?(guess)
   end
@@ -69,40 +64,17 @@ class Game
     ('a'..'z').to_a.any?(letter) && @previous_choice.none?(letter)
   end
 
-  # Announcer? Message?
-  def intro_game
-    "Welcome to Hangman!\n" \
-    "Guess the letters in the secret word to win!\n" \
-    'Player will guess one letter at a time. ' \
-    "Every incorrect guess will count as a penalty.\n" \
-    "If the player reaches #{INCORRECT_LIMIT} penalties, " \
-    'they lose and the game is over.'
-  end
-
-  def divider
-    '---------------'
-  end
-
-  def announce_round
-    "Round #{@round}"
-  end
-
-  def display_incorrect
-    "Incorrect guesses: #{@player.incorrect_str}"
-  end
-
-  def announce_results
-    if incorrect_limit?
-      puts 'Game over.'
-      puts 'Guess limit reached.'
-      puts "The word was #{@secret_word.word}."
-    elsif @secret_word.word_complete?
-      puts 'Player wins!'
-      puts "The word was #{@secret_word.word}."
+  def check_guess
+    if guess_correct?(@player.guess)
+      @secret_word.fill_word_template(@player.guess)
+    else
+      @player.log_incorrect
     end
   end
 
-  # Word?
+  def incorrect_limit
+    INCORRECT_LIMIT
+  end
 end
 
 Game.new
