@@ -20,6 +20,15 @@ module Messages
     "Incorrect guesses: #{@player.incorrect_str}"
   end
 
+  def round_msgs
+    [
+      divider,
+      announce_round,
+      @secret_word.template_string,
+      display_incorrect
+    ]
+  end
+
   def announce_results
     if incorrect_limit?
       puts 'Game over.'

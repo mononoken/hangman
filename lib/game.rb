@@ -15,21 +15,23 @@ class Game
     play_game
   end
 
-  def request_player_guessg
+  def request_player_guess
     puts 'Player input letter:'
     @player.guess = gets.chomp.downcase until valid_letter?(@player.guess)
   end
 
+  def check_guess
+    if guess_correct?(@player.guess)
+      @secret_word.fill_word_template(@player.guess)
+    else
+      @player.log_incorrect
+    end
+  end
+
   def play_round
-    puts divider
     @round += 1
-    puts announce_round
-    puts @secret_word.word
-    puts @secret_word.template_string
-    puts display_incorrect
-    request_player_guess
-    @previous_choice.push(@player.guess)
-    check_guess
+    puts round_msgs
+    player_guess
   end
 
   def play_game
@@ -37,6 +39,12 @@ class Game
     @secret_word = SecretWord.new
     play_round until end_game?
     announce_results
+  end
+
+  def player_guess
+    request_player_guess
+    @previous_choice.push(@player.guess)
+    check_guess
   end
 
   def reset_previous_choice
@@ -47,7 +55,7 @@ class Game
     @round = 0
   end
 
-  # Rules?
+  # Rules
   def end_game?
     incorrect_limit? || @secret_word.word_complete?
   end
@@ -62,14 +70,6 @@ class Game
 
   def valid_letter?(letter)
     ('a'..'z').to_a.any?(letter) && @previous_choice.none?(letter)
-  end
-
-  def check_guess
-    if guess_correct?(@player.guess)
-      @secret_word.fill_word_template(@player.guess)
-    else
-      @player.log_incorrect
-    end
   end
 
   def incorrect_limit
