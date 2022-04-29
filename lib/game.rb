@@ -3,6 +3,7 @@ require_relative 'player'
 class Game
   INCORRECT_LIMIT = 6
 
+  # Game
   def initialize
     set_secret_word
     @player = Player.new
@@ -11,18 +12,9 @@ class Game
     play_game
   end
 
-  def set_secret_word
-    @random_word = random_word
-    @word_letters = @random_word.split('')
-    @word_template = Array.new(@word_letters.length, '_')
-  end
-
-  def reset_previous_choice
-    @previous_choice = []
-  end
-
-  def reset_rounds
-    @round = 0
+  def request_player_guess
+    puts 'Player input letter:'
+    @player.guess = gets.chomp.downcase until valid_letter?(@player.guess)
   end
 
   def play_round
@@ -43,35 +35,15 @@ class Game
     announce_results
   end
 
-  def announce_results
-    if incorrect_limit?
-      puts 'Game over.'
-      puts 'Guess limit reached.'
-      puts "The word was #{@random_word}."
-    elsif word_complete?
-      puts 'Player wins!'
-      puts "The word was #{@random_word}."
-    end
+  def reset_previous_choice
+    @previous_choice = []
   end
 
-  def intro_game
-    "Welcome to Hangman!\n" \
-    "Guess the letters in the secret word to win!\n" \
-    'Player will guess one letter at a time. ' \
-    "Every incorrect guess will count as a penalty.\n" \
-    "If the player reaches #{INCORRECT_LIMIT} penalties, " \
-    'they lose and the game is over.'
+  def reset_rounds
+    @round = 0
   end
 
-  def divider
-    '---------------'
-  end
-
-  def request_player_guess
-    puts 'Player input letter:'
-    @player.guess = gets.chomp.downcase until valid_letter?(@player.guess)
-  end
-
+  # Rules?
   def end_game?
     incorrect_limit? || word_complete?
   end
@@ -96,30 +68,62 @@ class Game
     @word_letters.any?(guess)
   end
 
-  def fill_word_template(guess)
-    @word_letters.each_with_index do |letter, index|
-      @word_template[index] = guess if letter == guess
-    end
-  end
-
-  def display_incorrect
-    "Incorrect guesses: #{@player.incorrect_str}"
-  end
-
   def valid_letter?(letter)
     ('a'..'z').to_a.any?(letter) && @previous_choice.none?(letter)
+  end
+
+  # Announcer? Message?
+  def intro_game
+    "Welcome to Hangman!\n" \
+    "Guess the letters in the secret word to win!\n" \
+    'Player will guess one letter at a time. ' \
+    "Every incorrect guess will count as a penalty.\n" \
+    "If the player reaches #{INCORRECT_LIMIT} penalties, " \
+    'they lose and the game is over.'
+  end
+
+  def divider
+    '---------------'
   end
 
   def announce_round
     "Round #{@round}"
   end
 
+  def display_incorrect
+    "Incorrect guesses: #{@player.incorrect_str}"
+  end
+
+  def announce_results
+    if incorrect_limit?
+      puts 'Game over.'
+      puts 'Guess limit reached.'
+      puts "The word was #{@random_word}."
+    elsif word_complete?
+      puts 'Player wins!'
+      puts "The word was #{@random_word}."
+    end
+  end
+
+  # Word?g
+  def word_criteria?(word)
+    word.length.between?(5, 12)
+  end
+
   def extract_dictionary
     File.readlines(File.expand_path('../dic/google-10000-english-no-swears.txt', File.dirname(__FILE__)), chomp: true)
   end
 
-  def word_criteria?(word)
-    word.length.between?(5, 12)
+  def set_secret_word
+    @random_word = random_word
+    @word_letters = @random_word.split('')
+    @word_template = Array.new(@word_letters.length, '_')
+  end
+
+  def fill_word_template(guess)
+    @word_letters.each_with_index do |letter, index|
+      @word_template[index] = guess if letter == guess
+    end
   end
 
   def filtered_word_list
