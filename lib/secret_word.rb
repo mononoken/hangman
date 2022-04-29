@@ -29,7 +29,11 @@ class SecretWord
     end
   end
 
-  def template_string(word_template)
-    word_template.join(' ')
+  def template_string
+    @word_template.join(' ')
+  end
+
+  def word_complete?
+    @word_template.none?('_')
   end
 end
