@@ -15,8 +15,8 @@ A smooth game where the player can make guesses, receive feedback, and avoid any
 
 What are the steps necessary for the desired output? (pseudocode)
 
-- #start_game:
-- Puts #intro to game and #rules
+* #start_game:
+* Puts #intro to game and #rules
 * Game loads dictionary of words from txt file and stores as #word_list.
 * Game filters #word_list for game criteria
   - Criteria: between 5 and 12 characters long
@@ -24,7 +24,7 @@ What are the steps necessary for the desired output? (pseudocode)
 * Game stores word as #word_letters
 * Game initializes #word_template array which has length equal to #word_letters. 
 
-- #play_round:
+* #play_round:
 * Game puts #word_template on command line in form of '_ _ _ _'
 * Game puts request for #player_input
 * Player gives #player_input in form of letter
@@ -32,14 +32,16 @@ What are the steps necessary for the desired output? (pseudocode)
 * player_input.valid? if #player_input is not in #guesses, must be in 'abc...z'
   - If valid, game will set #player_input as #valid_guess
   - If invalid, game will reject input, puts 'Invalid input', and request #player_input again.
-- Game checks each item in #word_array to see if it matches #valid_guess.
+* Game checks each item in #word_array to see if it matches #valid_guess.
   - If valid, fill the letter in on word_template
   - If invalid, increment #invalid_guess_count
-- Until the following... play_round
-  - word_template == word_array
+* Until the following... play_round
+  ? word_template == word_array
     - if true, end game and puts 'Player wins!'
   - guess_quantity == guess_limit
     - if true, end game and announce 'Player loses.'
+
+- Need to create game function to save progress and load from save
 
 Possible classes:
 - Word

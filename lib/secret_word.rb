@@ -34,6 +34,6 @@ class SecretWord
   end
 
   def word_complete?
-    @word_template.none?('_')
+    @word_template == @word_letters
   end
 end
