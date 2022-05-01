@@ -43,6 +43,8 @@ What are the steps necessary for the desired output? (pseudocode)
 
 - Need to create game function to save progress and load from save
 
+- Game currently checks for end conditions, but it does not actually log whether the player wins or loses.
+
 Possible classes:
 - Word
 - Player

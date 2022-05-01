@@ -58,11 +58,19 @@ class Game
 
   # Rules
   def end_game?
-    incorrect_limit? || @secret_word.word_complete?
+    player_loses? || player_wins?
   end
 
   def incorrect_limit?
     @player.incorrect.length == INCORRECT_LIMIT
+  end
+
+  def player_wins?
+    @secret_word.word_complete? == true
+  end
+
+  def player_loses?
+    incorrect_limit? == true
   end
 
   def guess_correct?(guess)
