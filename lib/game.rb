@@ -9,9 +9,15 @@ class Game
 
   def initialize
     @player = Player.new
-    reset_previous_choice
-    reset_rounds
     play_game
+  end
+
+  def reset_previous_choice
+    @previous_choice = []
+  end
+
+  def reset_rounds
+    @round = 0
   end
 
   def request_player_guess
@@ -29,7 +35,7 @@ class Game
     end
   end
 
-  def player_guess
+  def player_turn
     request_player_guess
     @previous_choice.push(@player.guess)
     check_guess
@@ -38,22 +44,20 @@ class Game
   def play_round
     @round += 1
     puts round_msgs
-    player_guess
+    player_turn
   end
 
   def play_game
     puts intro_game
-    @secret_word = SecretWord.new
+    create_secret_word
+    reset_rounds
+    reset_previous_choice
     play_round until end_game?
     announce_results
   end
 
-  def reset_previous_choice
-    @previous_choice = []
-  end
-
-  def reset_rounds
-    @round = 0
+  def create_secret_word
+    @secret_word = SecretWord.new
   end
 
   # Rules
