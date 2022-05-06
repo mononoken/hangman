@@ -92,7 +92,14 @@ class Game
   end
 
   def save_game
-    YAML::dump(self)
+    save_dir = 'save_files'
+    save_file = 'save_file.yaml'
+
+    Dir.mkdir(save_dir) unless Dir.exist?(save_dir)
+
+    File.open("#{save_dir}/#{save_file}", 'w') do |file|
+      file.puts YAML::dump(self)
+    end
   end
 
   def load_game(yaml_string)
