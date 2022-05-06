@@ -12,9 +12,9 @@ class Game
   SAVE_DIR = 'saves'.freeze
   SAVE_FILE = 'save.yaml'.freeze
 
-  def initialize(player = nil, secret_word = nil, round = 0, previous_choice = nil)
-    @player = Player.new if player == nil
-    new_game if round == 0
+  def initialize(player = nil, secret_word = nil, round = 0)
+    @player = Player.new if player.nil?
+    new_game if round.zero?
     play_game
   end
 
@@ -43,7 +43,7 @@ class Game
 
   def player_turn
     request_player_guess
-    @previous_choice.push(@player.guess)
+    @player.log_previous_choice
     check_guess
   end
 
@@ -57,7 +57,7 @@ class Game
     puts intro_game
     create_secret_word
     reset_rounds
-    reset_previous_choice
+    @player.reset_previous_choices
   end
 
   def play_game
@@ -91,7 +91,7 @@ class Game
   end
 
   def valid_letter?(letter)
-    ('a'..'z').to_a.any?(letter) && @previous_choice.none?(letter)
+    ('a'..'z').to_a.any?(letter) && @player.previous_choices.none?(letter)
   end
 
   def incorrect_limit
