@@ -9,6 +9,9 @@ class Game
 
   INCORRECT_LIMIT = 6
 
+  SAVE_DIR = 'saves'.freeze
+  SAVE_FILE = 'save.yaml'.freeze
+
   def initialize
     @player = Player.new
     play_game
@@ -92,12 +95,9 @@ class Game
   end
 
   def save_game
-    save_dir = 'save_files'
-    save_file = 'save_file.yaml'
+    Dir.mkdir(SAVE_DIR) unless Dir.exist?(SAVE_DIR)
 
-    Dir.mkdir(save_dir) unless Dir.exist?(save_dir)
-
-    File.open("#{save_dir}/#{save_file}", 'w') do |file|
+    File.open("#{SAVE_DIR}/#{SAVE_FILE}", 'w') do |file|
       file.puts YAML::dump(self)
     end
   end
