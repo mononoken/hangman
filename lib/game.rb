@@ -27,10 +27,11 @@ class Game
   end
 
   def request_player_guess
-    until valid_letter?(@player.guess)
+    until valid_letter?(guess)
       puts 'Player input letter:'
-      @player.guess = gets.chomp.downcase
+      guess = gets.chomp.downcase
     end
+    @player.guess = guess
   end
 
   def check_guess
