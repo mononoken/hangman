@@ -12,8 +12,9 @@ class Game
   SAVE_DIR = 'saves'.freeze
   SAVE_FILE = 'save.yaml'.freeze
 
-  def initialize
-    @player = Player.new
+  def initialize(player = nil, secret_word = nil, round = 0, previous_choice = nil)
+    @player = Player.new if player == nil
+    new_game if round == 0
     play_game
   end
 
@@ -52,11 +53,14 @@ class Game
     player_turn
   end
 
-  def play_game
+  def new_game
     puts intro_game
     create_secret_word
     reset_rounds
     reset_previous_choice
+  end
+
+  def play_game
     play_round until end_game?
     announce_results
   end
@@ -102,7 +106,7 @@ class Game
     end
   end
 
-  def load_game(yaml_string)
-    YAML::load(yaml_string)
+  def load_game
+    YAML::load(File.open("#{SAVE_DIR}/#{SAVE_FILE}", 'r'))
   end
 end
