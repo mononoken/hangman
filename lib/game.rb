@@ -2,6 +2,8 @@ require_relative 'player'
 require_relative 'secret_word'
 require_relative 'messages'
 
+require 'yaml'
+
 class Game
   include Messages
 
@@ -88,6 +90,12 @@ class Game
   def incorrect_limit
     INCORRECT_LIMIT
   end
-end
 
-Game.new
+  def save_game
+    YAML::dump(self)
+  end
+
+  def load_game(yaml_string)
+    YAML::load(yaml_string)
+  end
+end

@@ -50,5 +50,15 @@ Possible classes:
 - Player
 - Rules
 
+---
+
+* Create save and load functions
+  * Research more on JSON
+* Read up on making game continuous rather than lines
+  * Use prints and /r for writing over the same line.
+  * Use sleep for pauses.
+* 
+
+
 
 Divide and conquer:
