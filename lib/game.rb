@@ -15,18 +15,13 @@ class Game
   SAVE_FILE = 'save.yaml'.freeze
   SAVE_PATH = "#{SAVE_DIR}/#{SAVE_FILE}".freeze
 
-  def initialize(player = nil, secret_word = nil, round = 0)
+  def initialize
     @game_saved = nil
-    @load_file = nil
     prompt_load
-    if @load_file == true
-      @player = player
-      @secret_word = secret_word
-      @round = round
-    else
-      @player = Player.new(self) if player.nil?
-      new_game if round.zero?
-    end
+    return if @load_file == true
+
+    @player = Player.new(self)
+    new_game
     play_game
   end
 
@@ -119,14 +114,15 @@ class Game
   end
 
   def load_game
-    YAML.load(File.open(SAVE_PATH, 'r'))
+    loaded_game = YAML.load(File.open(SAVE_PATH, 'r'))
+    loaded_game.play_game
   end
 
   def prompt_load
     puts "Type 'L' to load. Otherwise hit any key."
-    if gets.chomp.downcase == 'l'
-      load_game
-      @load_file = true
-    end
+    return unless gets.chomp.downcase == 'l'
+
+    load_game
+    @load_file = true
   end
 end
