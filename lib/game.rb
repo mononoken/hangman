@@ -101,11 +101,11 @@ class Game
     Dir.mkdir(SAVE_DIR) unless Dir.exist?(SAVE_DIR)
 
     File.open(SAVE_PATH, 'w') do |file|
-      file.puts YAML::dump(self)
+      file.puts YAML.dump(self)
     end
   end
 
   def load_game
-    YAML::load(File.open(SAVE_PATH, 'r'))
+    YAML.load(File.open(SAVE_PATH, 'r'))
   end
 end
