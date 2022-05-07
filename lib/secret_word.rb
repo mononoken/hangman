@@ -1,7 +1,7 @@
 class SecretWord
   attr_reader :word, :word_letters, :word_template
 
-  def initialize
+  def initialize(word = nil, word_letters = nil, word_template = nil)
     @word = random_word
     @word_letters = @word.split('')
     @word_template = Array.new(@word_letters.length, '_')

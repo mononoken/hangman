@@ -7,6 +7,8 @@ require 'yaml'
 class Game
   include Messages
 
+  attr_reader :load_file
+
   INCORRECT_LIMIT = 6
 
   SAVE_DIR = 'saves'.freeze
@@ -14,8 +16,16 @@ class Game
   SAVE_PATH = "#{SAVE_DIR}/#{SAVE_FILE}".freeze
 
   def initialize(player = nil, secret_word = nil, round = 0)
-    @player = Player.new if player.nil?
-    new_game if round.zero?
+    @load_file = nil
+    prompt_load
+    if @load_file == true
+      @player = player
+      @secret_word = secret_word
+      @round = round
+    else
+      @player = Player.new(self) if player.nil?
+      new_game if round.zero?
+    end
     play_game
   end
 
@@ -107,5 +117,13 @@ class Game
 
   def load_game
     YAML.load(File.open(SAVE_PATH, 'r'))
+  end
+
+  def prompt_load
+    puts "Type 'L' to load. Otherwise hit any key."
+    if gets.chomp.downcase == 'l'
+      load_game
+      @load_file = true
+    end
   end
 end
