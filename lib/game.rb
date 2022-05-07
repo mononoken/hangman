@@ -8,6 +8,7 @@ class Game
   include Messages
 
   attr_reader :load_file
+  attr_accessor :game_loaded
 
   INCORRECT_LIMIT = 6
 
@@ -17,12 +18,20 @@ class Game
 
   def initialize
     @game_saved = nil
+    @game_loaded = nil
     prompt_load
     return if @load_file == true
 
     @player = Player.new(self)
     new_game
     play_game
+  end
+
+  def new_game
+    puts intro_game
+    create_secret_word
+    reset_rounds
+    @player.reset_player_history
   end
 
   def reset_rounds
@@ -53,15 +62,9 @@ class Game
     check_guess
   end
 
-  def new_game
-    puts intro_game
-    create_secret_word
-    reset_rounds
-    @player.reset_player_history
-  end
-
   def play_round
-    @round += 1
+    @round += 1 unless @game_loaded == true
+    @game_loaded = nil
     puts round_msgs
     player_turn
   end
@@ -115,6 +118,7 @@ class Game
 
   def load_game
     loaded_game = YAML.load(File.open(SAVE_PATH, 'r'))
+    loaded_game.game_loaded = true
     loaded_game.play_game
   end
 
@@ -126,3 +130,5 @@ class Game
     @load_file = true
   end
 end
+
+Game.new

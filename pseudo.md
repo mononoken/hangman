@@ -59,6 +59,11 @@ Possible classes:
   * Use sleep for pauses.
 * 
 
+---
+
+* I feel like @round behavior and @game_loaded variable have got to have better logic in play_round.
+* Need to add replay function
+* Add multiple saves function?
 
 
 Divide and conquer:
