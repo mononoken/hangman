@@ -2,17 +2,11 @@ class Player
   attr_reader :incorrect, :previous_choices
   attr_accessor :game, :guess
 
-  def initialize(game, guess = nil, previous_choices = nil, incorrect = nil)
+  def initialize(game, guess = nil, previous_choices = [], incorrect = [])
     @game = game
-    if @game.load_file == true
-      @guess = guess
-      @previous_choices = previous_choices
-      @incorrect = incorrect
-    else
-      @guess = nil
-      @previous_choices = []
-      @incorrect = []
-    end
+    @guess = guess
+    @previous_choices = previous_choices
+    @incorrect = incorrect
   end
 
   def log_incorrect
@@ -25,5 +19,11 @@ class Player
 
   def log_previous_choice
     @previous_choices.push(@guess)
+  end
+
+  def reset_player_history
+    @guess = nil
+    @previous_choices.clear
+    @incorrect.clear
   end
 end
