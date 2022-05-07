@@ -1,0 +1,35 @@
+--- !ruby/object:Game
+player: !ruby/object:Player
+  guess: g
+  incorrect:
+  - e
+  - i
+  - s
+  - t
+  - h
+secret_word: !ruby/object:SecretWord
+  word: wrong
+  word_letters:
+  - w
+  - r
+  - o
+  - n
+  - g
+  word_template:
+  - w
+  - r
+  - o
+  - n
+  - g
+round: 10
+previous_choice:
+- e
+- i
+- o
+- s
+- t
+- r
+- n
+- h
+- w
+- g

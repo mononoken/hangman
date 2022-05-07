@@ -11,6 +11,7 @@ class Game
 
   SAVE_DIR = 'saves'.freeze
   SAVE_FILE = 'save.yaml'.freeze
+  SAVE_PATH = "#{SAVE_DIR}/#{SAVE_FILE}"
 
   def initialize(player = nil, secret_word = nil, round = 0)
     @player = Player.new if player.nil?
@@ -102,12 +103,12 @@ class Game
   def save_game
     Dir.mkdir(SAVE_DIR) unless Dir.exist?(SAVE_DIR)
 
-    File.open("#{SAVE_DIR}/#{SAVE_FILE}", 'w') do |file|
+    File.open(SAVE_PATH, 'w') do |file|
       file.puts YAML::dump(self)
     end
   end
 
   def load_game
-    YAML::load(File.open("#{SAVE_DIR}/#{SAVE_FILE}", 'r'))
+    YAML::load(File.open(SAVE_PATH, 'r'))
   end
 end
