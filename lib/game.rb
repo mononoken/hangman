@@ -19,15 +19,12 @@ class Game
     play_game
   end
 
-  def reset_previous_choice
-    @previous_choice = []
-  end
-
   def reset_rounds
     @round = 0
   end
 
   def request_player_guess
+    guess = nil
     until valid_letter?(guess)
       puts 'Player input letter:'
       guess = gets.chomp.downcase
