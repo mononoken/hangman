@@ -11,7 +11,7 @@ class Game
 
   SAVE_DIR = 'saves'.freeze
   SAVE_FILE = 'save.yaml'.freeze
-  SAVE_PATH = "#{SAVE_DIR}/#{SAVE_FILE}"
+  SAVE_PATH = "#{SAVE_DIR}/#{SAVE_FILE}".freeze
 
   def initialize(player = nil, secret_word = nil, round = 0)
     @player = Player.new if player.nil?
