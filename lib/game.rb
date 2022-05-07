@@ -16,6 +16,7 @@ class Game
   SAVE_PATH = "#{SAVE_DIR}/#{SAVE_FILE}".freeze
 
   def initialize(player = nil, secret_word = nil, round = 0)
+    @game_saved = nil
     @load_file = nil
     prompt_load
     if @load_file == true
@@ -35,11 +36,12 @@ class Game
 
   def request_player_guess
     guess = nil
-    until valid_letter?(guess)
-      puts 'Player input letter:'
+    until valid_letter?(guess) || guess == 'save'
+      puts "Player input letter (or type 'save' to save):"
       guess = gets.chomp.downcase
     end
-    @player.guess = guess
+    save_game if guess == 'save'
+    @player.guess = guess if valid_letter?(guess)
   end
 
   def check_guess
@@ -56,12 +58,6 @@ class Game
     check_guess
   end
 
-  def play_round
-    @round += 1
-    puts round_msgs
-    player_turn
-  end
-
   def new_game
     puts intro_game
     create_secret_word
@@ -69,8 +65,14 @@ class Game
     @player.reset_player_history
   end
 
+  def play_round
+    @round += 1
+    puts round_msgs
+    player_turn
+  end
+
   def play_game
-    play_round until end_game?
+    play_round until end_game? || @game_saved == true
     announce_results
   end
 
@@ -113,6 +115,7 @@ class Game
     File.open(SAVE_PATH, 'w') do |file|
       file.puts YAML.dump(self)
     end
+    @game_saved = true
   end
 
   def load_game
