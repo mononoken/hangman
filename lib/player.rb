@@ -26,8 +26,4 @@ class Player
   def log_previous_choice
     @previous_choices.push(@guess)
   end
-
-  def reset_previous_choices
-    @previous_choices = []
-  end
 end

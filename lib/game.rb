@@ -66,7 +66,7 @@ class Game
     puts intro_game
     create_secret_word
     reset_rounds
-    @player.reset_previous_choices
+    @player.previous_choices.clear
   end
 
   def play_game
