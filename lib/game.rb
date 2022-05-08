@@ -70,6 +70,9 @@ class Game
   def play_game
     play_round until end_game? || @game_saved == true
     announce_results
+    while replay_game?
+      replay_game
+    end
   end
 
   def create_secret_word
@@ -127,16 +130,24 @@ class Game
     @load_file = true
   end
 
-  def replay_game?
-    puts 'Play again? (y/n)'
-    replay = gets.chomp.downcase until replay == 'y' || replay == 'n'
-    replay == 'y'
-  end
-
   def reset_game_values
     create_secret_word
     reset_rounds
     @player.reset_player_history
+  end
+
+  def replay_game?
+    puts 'Play again? (y/n)'
+    replay = gets.chomp.downcase
+    until replay == 'y' || replay == 'n'
+      replay = gets.chomp.downcase
+    end
+    replay == 'y'
+  end
+
+  def replay_game
+    reset_game_values
+    self.play_game
   end
 end
 
