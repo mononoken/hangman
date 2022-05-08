@@ -17,7 +17,7 @@ module Messages
   end
 
   def display_incorrect
-    "Incorrect guesses: #{@player.incorrect_str}"
+    "Incorrect guesses (#{@player.incorrect.length} out of #{incorrect_limit}): #{@player.incorrect_str}"
   end
 
   def round_msgs
