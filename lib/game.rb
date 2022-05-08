@@ -29,9 +29,7 @@ class Game
 
   def new_game
     puts intro_game
-    create_secret_word
-    reset_rounds
-    @player.reset_player_history
+    reset_game_values
   end
 
   def reset_rounds
@@ -78,7 +76,6 @@ class Game
     @secret_word = SecretWord.new
   end
 
-  # Rules
   def end_game?
     player_loses? || player_wins?
   end
@@ -128,6 +125,18 @@ class Game
 
     load_game
     @load_file = true
+  end
+
+  def replay_game?
+    puts 'Play again? (y/n)'
+    replay = gets.chomp.downcase until replay == 'y' || replay == 'n'
+    replay == 'y'
+  end
+
+  def reset_game_values
+    create_secret_word
+    reset_rounds
+    @player.reset_player_history
   end
 end
 
