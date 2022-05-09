@@ -9,7 +9,7 @@ module Saveable
     File.open(SAVE_PATH, 'w') do |file|
       file.puts YAML.dump(self)
     end
-    @game_saved = true
+    abort 'Game saved'
   end
 
   def load_game

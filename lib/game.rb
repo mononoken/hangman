@@ -13,7 +13,6 @@ class Game
   INCORRECT_LIMIT = 6
 
   def initialize
-    @game_saved = nil
     @game_loaded = nil
     prompt_load
     return if @load_file == true
@@ -64,16 +63,9 @@ class Game
   end
 
   def play_game
-    play_round until end_game? || @game_saved == true
-
-    if @game_saved == true
-      return puts 'Game saved'
-    else
-      announce_results
-      while replay_game?
-        replay_game
-      end
-    end
+    play_round until end_game?
+    announce_results
+    replay_game while replay_game?
   end
 
   def create_secret_word
@@ -125,7 +117,7 @@ class Game
 
   def replay_game
     reset_game_values
-    self.play_game
+    play_game
   end
 end
 
