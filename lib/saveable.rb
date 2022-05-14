@@ -18,7 +18,7 @@ module Saveable
   end
 
   def prompt_load
-    puts "Type 'L' to load. Otherwise hit any key."
+    puts "Type 'L' to load. Otherwise enter any key."
     gets.chomp.downcase == 'l'
   end
 end
