@@ -13,12 +13,13 @@ class Game
   INCORRECT_LIMIT = 6
 
   def initialize
-    prompt_load
-    return if @load_file == true
-
-    @player = Player.new
-    new_game
-    play_game
+    if prompt_load
+      load_game.play_game
+    else
+      @player = Player.new
+      new_game
+      play_game
+    end
   end
 
   def new_game
@@ -105,7 +106,6 @@ class Game
   end
 
   def replay_game?
-    binding.pry
     puts 'Play again? (y/n)'
     replay = gets.chomp.downcase until replay == 'y' || replay == 'n'
     replay == 'y'

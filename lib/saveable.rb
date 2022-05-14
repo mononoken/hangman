@@ -14,16 +14,11 @@ module Saveable
 
   # FIX_ME: This function causes replay issues because of multiple instances of Game running
   def load_game
-    loaded_game = YAML.load(File.open(SAVE_PATH, 'r'))
-    loaded_game.game_loaded = true
-    loaded_game.play_game
+    YAML.load(File.open(SAVE_PATH, 'r'))
   end
 
   def prompt_load
     puts "Type 'L' to load. Otherwise hit any key."
-    return unless gets.chomp.downcase == 'l'
-
-    load_game
-    @load_file = true
+    gets.chomp.downcase == 'l'
   end
 end
