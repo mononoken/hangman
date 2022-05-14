@@ -1,35 +1,36 @@
---- !ruby/object:Game
+--- &1 !ruby/object:Game
+game_loaded: 
 player: !ruby/object:Player
-  guess: g
-  incorrect:
+  game: *1
+  guess: f
+  previous_choices:
   - e
-  - i
   - s
   - t
-  - h
+  - r
+  - z
+  - a
+  - f
+  incorrect:
+  - s
+  - t
+  - z
+  - a
+  - f
 secret_word: !ruby/object:SecretWord
-  word: wrong
+  word: memory
   word_letters:
-  - w
-  - r
+  - m
+  - e
+  - m
   - o
-  - n
-  - g
+  - r
+  - y
   word_template:
-  - w
+  - _
+  - e
+  - _
+  - _
   - r
-  - o
-  - n
-  - g
-round: 10
-previous_choice:
-- e
-- i
-- o
-- s
-- t
-- r
-- n
-- h
-- w
-- g
+  - _
+round: 8

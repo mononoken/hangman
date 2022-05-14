@@ -13,6 +13,7 @@ module Saveable
   end
 
   def load_game
+    p YAML.load(File.open(SAVE_PATH, 'r'))
     YAML.load(File.open(SAVE_PATH, 'r'))
   end
 

@@ -12,7 +12,9 @@ class Game
   INCORRECT_LIMIT = 6
 
   def initialize
+    puts intro_msg
     if prompt_load
+      puts load_success_msg
       load_game.play_game
     else
       @player = Player.new
@@ -22,7 +24,7 @@ class Game
   end
 
   def new_game
-    puts intro_game
+    puts rules
   end
 
   def reset_rounds

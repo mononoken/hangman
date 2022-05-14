@@ -1,6 +1,9 @@
 module Messages
-  def intro_game
-    "Welcome to Hangman!\n" \
+  def intro_msg
+    'Welcome to Hangman!'
+  end
+
+  def rules
     "Guess the letters in the secret word to win!\n" \
     'Player will guess one letter at a time. ' \
     "Every incorrect guess will count as a penalty.\n" \
@@ -42,5 +45,9 @@ module Messages
 
   def end_game_msg
     'Thank you for playing!'
+  end
+
+  def load_success_msg
+    'Game loaded.'
   end
 end
