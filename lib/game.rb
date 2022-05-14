@@ -4,7 +4,6 @@ require_relative 'messages'
 require_relative 'saveable'
 
 require 'yaml'
-require 'pry-byebug'
 
 class Game
   include Messages
@@ -24,11 +23,16 @@ class Game
 
   def new_game
     puts intro_game
-    reset_game_values
   end
 
   def reset_rounds
     @round = 1
+  end
+
+  def reset_game_values
+    create_secret_word
+    reset_rounds
+    @player.reset_player_history
   end
 
   def request_player_guess
@@ -61,10 +65,19 @@ class Game
     @round += 1
   end
 
-  def play_game
+  def play_rounds
+    reset_game_values
     play_round until end_game?
     announce_results
-    replay_game while replay_game?
+  end
+
+  def play_game
+    run_game = true
+    while run_game
+      play_rounds
+      run_game = replay_game?
+    end
+    puts end_game_msg
   end
 
   def create_secret_word
@@ -99,22 +112,10 @@ class Game
     INCORRECT_LIMIT
   end
 
-  def reset_game_values
-    create_secret_word
-    reset_rounds
-    @player.reset_player_history
-  end
-
   def replay_game?
     puts 'Play again? (y/n)'
     replay = gets.chomp.downcase until replay == 'y' || replay == 'n'
     replay == 'y'
-  end
-
-  # Is replay error being caused by play_game inside replay_game inside play_game?
-  def replay_game
-    reset_game_values
-    play_game
   end
 end
 

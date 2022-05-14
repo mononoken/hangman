@@ -39,4 +39,8 @@ module Messages
       puts "The word was #{@secret_word.word}."
     end
   end
+
+  def end_game_msg
+    'Thank you for playing!'
+  end
 end
