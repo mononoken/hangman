@@ -16,7 +16,7 @@ class Game
     prompt_load
     return if @load_file == true
 
-    @player = Player.new(self)
+    @player = Player.new
     new_game
     play_game
   end

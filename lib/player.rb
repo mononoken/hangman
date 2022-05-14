@@ -1,9 +1,8 @@
 class Player
   attr_reader :incorrect, :previous_choices
-  attr_accessor :game, :guess
+  attr_accessor :guess
 
-  def initialize(game, guess = nil, previous_choices = [], incorrect = [])
-    @game = game
+  def initialize(guess = nil, previous_choices = [], incorrect = [])
     @guess = guess
     @previous_choices = previous_choices
     @incorrect = incorrect
