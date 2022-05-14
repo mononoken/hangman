@@ -24,6 +24,7 @@ class Game
   end
 
   def new_game
+    reset_game_values
     puts rules
   end
 
@@ -68,7 +69,6 @@ class Game
   end
 
   def play_rounds
-    reset_game_values
     play_round until end_game?
     announce_results
   end
@@ -77,7 +77,12 @@ class Game
     run_game = true
     while run_game
       play_rounds
-      run_game = replay_game?
+      if replay_game?
+        run_game = true
+        reset_game_values
+      else
+        run_game = false
+      end
     end
     puts end_game_msg
   end
