@@ -14,7 +14,6 @@ class Game
   INCORRECT_LIMIT = 6
 
   def initialize
-    @game_loaded = nil
     prompt_load
     return if @load_file == true
 
@@ -57,7 +56,6 @@ class Game
   end
 
   def play_round
-    @game_loaded = nil unless @game_loaded.nil?
     puts round_msgs
     player_turn
     @round += 1
