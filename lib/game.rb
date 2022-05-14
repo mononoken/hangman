@@ -9,7 +9,6 @@ require 'pry-byebug'
 class Game
   include Messages
   include Saveable
-  attr_accessor :game_loaded
 
   INCORRECT_LIMIT = 6
 
