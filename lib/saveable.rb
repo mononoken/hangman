@@ -12,6 +12,7 @@ module Saveable
     abort 'Game saved'
   end
 
+  # FIX_ME: This function causes replay issues because of multiple instances of Game running
   def load_game
     loaded_game = YAML.load(File.open(SAVE_PATH, 'r'))
     loaded_game.game_loaded = true

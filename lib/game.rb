@@ -4,6 +4,7 @@ require_relative 'messages'
 require_relative 'saveable'
 
 require 'yaml'
+require 'pry-byebug'
 
 class Game
   include Messages
@@ -28,7 +29,7 @@ class Game
   end
 
   def reset_rounds
-    @round = 0
+    @round = 1
   end
 
   def request_player_guess
@@ -56,10 +57,10 @@ class Game
   end
 
   def play_round
-    @round += 1 unless @game_loaded == true
-    @game_loaded = nil
+    @game_loaded = nil unless @game_loaded.nil?
     puts round_msgs
     player_turn
+    @round += 1
   end
 
   def play_game
@@ -107,14 +108,13 @@ class Game
   end
 
   def replay_game?
+    binding.pry
     puts 'Play again? (y/n)'
-    replay = gets.chomp.downcase
-    until replay == 'y' || replay == 'n'
-      replay = gets.chomp.downcase
-    end
+    replay = gets.chomp.downcase until replay == 'y' || replay == 'n'
     replay == 'y'
   end
 
+  # Is replay error being caused by play_game inside replay_game inside play_game?
   def replay_game
     reset_game_values
     play_game
