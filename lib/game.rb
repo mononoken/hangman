@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'player'
 require_relative 'secret_word'
 require_relative 'messages'
@@ -5,6 +7,7 @@ require_relative 'saveable'
 
 require 'yaml'
 
+# Run the processes of the game
 class Game
   include Messages
   include Saveable

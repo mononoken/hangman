@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Represent the player of the game.
 class Player
   attr_reader :incorrect, :previous_choices
   attr_accessor :guess

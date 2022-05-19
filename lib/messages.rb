@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Include the string statements for Game.
 module Messages
   def intro_msg
     'Welcome to Hangman!'

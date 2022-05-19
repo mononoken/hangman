@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Represent the solution for Game.
 class SecretWord
   attr_reader :word, :word_letters, :word_template
 
