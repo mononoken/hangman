@@ -9,7 +9,7 @@ module Saveable
   def save_game
     Dir.mkdir(SAVE_DIR) unless Dir.exist?(SAVE_DIR)
 
-    File.open(SAVE_PATH, 'w') do |file|
+    File.open(SAVE_PATH, 'a') do |file|
       file.puts YAML.dump(self)
     end
     abort 'Game saved'
