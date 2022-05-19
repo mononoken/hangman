@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Add saving and loading methods to Game.
 module Saveable
   SAVE_DIR = 'saves'.freeze
   SAVE_FILE = 'save.yaml'.freeze
