@@ -19,8 +19,7 @@ module Saveable
   end
 
   def load_game
-    SaveName.previous_saves
-    puts 
+    SaveName.list_saves
     YAML.load(File.open(SAVE_PATH, 'r'))
   end
 
@@ -36,7 +35,7 @@ class SaveName
 
   def initialize(name = valid_name)
     @name = name
-  endg
+  end
 
   def save_path
     "#{SAVE_DIR}/#{save_file}"
@@ -48,6 +47,13 @@ class SaveName
 
   def self.previous_saves
     Dir.glob("#{SAVE_DIR}/*.yaml")
+  end
+
+  def self.list_saves
+    puts 'Current saves:'
+    self.previous_saves.each do |save_path|
+      puts save_path.gsub("#{SAVE_DIR}/",'').gsub('.yaml','')
+    end
   end
 
   private
