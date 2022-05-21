@@ -19,8 +19,8 @@ module Saveable
   end
 
   def load_game
-    SaveName.list_saves
-    YAML.load(File.open(SAVE_PATH, 'r'))
+    LoadName.list_saves
+    YAML.load(File.open(LoadName.new.save_path, 'r'))
   end
 
   def prompt_load
@@ -49,15 +49,6 @@ class SaveName
     Dir.glob("#{SAVE_DIR}/*.yaml")
   end
 
-  def self.list_saves
-    puts 'Current saves:'
-    self.previous_saves.each do |save_path|
-      puts save_path.gsub("#{SAVE_DIR}/",'').gsub('.yaml','')
-    end
-  end
-
-  private
-
   def request_name
     puts "Please input save file name. Use only letters, numbers, or '_'."
     gets.chomp.downcase
@@ -65,8 +56,14 @@ class SaveName
 
   def valid_name
     name = request_name
-    name = request_name until valid_name?(name)
+    until valid_name?(name)
+      name = request_name
+      # print variables to see what is broken!
+    end
     name
+    # name = request_name
+    # name = request_name until valid_name?(name)
+    # name
   end
 
   def save_file
@@ -83,5 +80,23 @@ class SaveName
 
   def valid_chars?(name)
     name.split('').all? { |letter| self.class.acceptable_chars.include? letter }
+  end
+end
+
+class LoadName < SaveName
+  def self.list_saves
+    puts 'Current saves:'
+    self.previous_saves.each do |save_path|
+      puts save_path.gsub("#{SAVE_DIR}/", '').gsub('.yaml', '')
+    end
+  end
+
+  def request_name
+    puts 'Please pick a save file. Type the save file name as shown in the list.'
+    gets.chomp.downcase
+  end
+
+  def previous_name?(name)
+    self.class.previous_saves.any?(name)
   end
 end
