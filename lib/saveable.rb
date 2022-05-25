@@ -75,7 +75,7 @@ class SaveName
     return if available_name?(name)
 
     puts "Save name, '#{name}', has been previously used."
-    puts 'Do you wish to overwrite previous save? (y/n)'
+    puts 'Do you wish to overwrgite previous save? (y/n)'
     gets.chomp.downcase == 'y'
   end
 
