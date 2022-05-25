@@ -37,8 +37,12 @@ class SaveName
     @name = name
   end
 
-  def save_path
-    "#{SAVE_DIR}/#{save_file}"
+  def save_file
+    "#{@name}.yaml"
+  end
+
+  def save_path(file = save_file)
+    "#{SAVE_DIR}/#{file}"
   end
 
   def self.acceptable_chars
@@ -56,18 +60,8 @@ class SaveName
 
   def valid_name
     name = request_name
-    until valid_name?(name)
-      name = request_name
-      # print variables to see what is broken!
-    end
+    name = request_name until valid_name?(name)
     name
-    # name = request_name
-    # name = request_name until valid_name?(name)
-    # name
-  end
-
-  def save_file
-    "#{@name}.yaml"
   end
 
   def valid_name?(name)
@@ -84,6 +78,11 @@ class SaveName
 end
 
 class LoadName < SaveName
+  def initialize(name = valid_name)
+    puts "Load '#{name}' initiated!"
+    super
+  end
+
   def self.list_saves
     puts 'Current saves:'
     self.previous_saves.each do |save_path|
@@ -96,7 +95,14 @@ class LoadName < SaveName
     gets.chomp.downcase
   end
 
+  def valid_name?(name)
+    previous_name?(name) && valid_chars?(name)
+  end
+
   def previous_name?(name)
+    # Clean this up
+    name += '.yaml'
+    name = save_path(name)
     self.class.previous_saves.any?(name)
   end
 end

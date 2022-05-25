@@ -1,34 +1,27 @@
 --- !ruby/object:Game
 player: !ruby/object:Player
-  guess: n
+  guess: e
   previous_choices:
-  - r
-  - t
-  - g
-  - a
   - s
-  - w
-  - n
+  - t
+  - k
+  - e
   incorrect:
   - t
-  - g
-  - a
-  - w
-  - n
-secret_word: !ruby/object:SecretWord
-  word: buyers
-  word_letters:
-  - b
-  - u
-  - y
+  - k
   - e
-  - r
+secret_word: !ruby/object:SecretWord
+  word: oscar
+  word_letters:
+  - o
   - s
+  - c
+  - a
+  - r
   word_template:
   - _
-  - _
-  - _
-  - _
-  - r
   - s
-round: 8
+  - _
+  - _
+  - _
+round: 5
