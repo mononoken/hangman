@@ -1,27 +1,32 @@
 --- !ruby/object:Game
 player: !ruby/object:Player
-  guess: e
+  guess: n
   previous_choices:
-  - s
-  - t
-  - k
   - e
-  incorrect:
-  - t
-  - k
-  - e
+  - n
+  incorrect: []
 secret_word: !ruby/object:SecretWord
-  word: oscar
+  word: incentives
   word_letters:
-  - o
-  - s
+  - i
+  - n
   - c
-  - a
-  - r
+  - e
+  - n
+  - t
+  - i
+  - v
+  - e
+  - s
   word_template:
   - _
-  - s
+  - n
+  - _
+  - e
+  - n
   - _
   - _
   - _
-round: 5
+  - e
+  - _
+round: 3

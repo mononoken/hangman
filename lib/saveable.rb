@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# Add saving and loading methods to Game.
+# Constants for SaveName and LoadName.
 module SaveConstants
   SAVE_DIR = 'saves'
-  SAVE_FILE = 'save.yaml'
 end
 
+# Allow game to save games and load from these saved games.
 module Saveable
   include SaveConstants
 
@@ -37,8 +37,8 @@ class SaveName
     @name = name
   end
 
-  def save_file
-    "#{@name}.yaml"
+  def save_file(name = @name)
+    "#{name}.yaml"
   end
 
   def save_path(file = save_file)
@@ -69,7 +69,8 @@ class SaveName
   end
 
   def previous_name?(name)
-    self.class.previous_saves.none?(name)
+    file_path = save_path(save_file(name))
+    self.class.previous_saves.none?(file_path)
   end
 
   def valid_chars?(name)
@@ -77,9 +78,10 @@ class SaveName
   end
 end
 
+# Represent load file name with proper path formatting.
 class LoadName < SaveName
   def initialize(name = valid_name)
-    puts "Load '#{name}' initiated!"
+    puts "Load '#{name}'pr initiated!"
     super
   end
 
@@ -95,14 +97,8 @@ class LoadName < SaveName
     gets.chomp.downcase
   end
 
-  def valid_name?(name)
-    previous_name?(name) && valid_chars?(name)
-  end
-
   def previous_name?(name)
-    # Clean this up
-    name += '.yaml'
-    name = save_path(name)
-    self.class.previous_saves.any?(name)
+    file_path = save_path(save_file(name))
+    self.class.previous_saves.any?(file_path)
   end
 end
