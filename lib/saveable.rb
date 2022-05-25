@@ -58,30 +58,38 @@ class SaveName
     gets.chomp.downcase
   end
 
-  def valid_name
-    name = request_name
-    name = request_name until valid_name?(name)
-    name
+  def valid_chars?(name)
+    name.split('').all? { |letter| self.class.acceptable_chars.include? letter }
   end
 
   def valid_name?(name)
-    previous_name?(name) && valid_chars?(name)
+    valid_chars?(name) && (available_name?(name) || overwrite?(name))
   end
 
-  def previous_name?(name)
+  def available_name?(name)
     file_path = save_path(save_file(name))
     self.class.previous_saves.none?(file_path)
   end
 
-  def valid_chars?(name)
-    name.split('').all? { |letter| self.class.acceptable_chars.include? letter }
+  def overwrite?(name)
+    return if available_name?(name)
+
+    puts "Save name, '#{name}', has been previously used."
+    puts 'Do you wish to overwrite previous save? (y/n)'
+    gets.chomp.downcase == 'y'
+  end
+
+  def valid_name
+    name = request_name
+    name = request_name until valid_name?(name)
+    name
   end
 end
 
 # Represent load file name with proper path formatting.
 class LoadName < SaveName
   def initialize(name = valid_name)
-    puts "Load '#{name}'pr initiated!"
+    puts "Load '#{name}' initiated!"
     super
   end
 
@@ -100,5 +108,9 @@ class LoadName < SaveName
   def previous_name?(name)
     file_path = save_path(save_file(name))
     self.class.previous_saves.any?(file_path)
+  end
+
+  def valid_name?(name)
+    valid_chars?(name) && previous_name?(name)
   end
 end
