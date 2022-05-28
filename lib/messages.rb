@@ -49,8 +49,4 @@ module Messages
   def end_game_msg
     'Thank you for playing!'
   end
-
-  def load_success_msg
-    'Game loaded.'
-  end
 end

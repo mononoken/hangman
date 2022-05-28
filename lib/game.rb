@@ -17,7 +17,6 @@ class Game
   def initialize
     puts intro_msg
     if prompt_load
-      puts load_success_msg
       load_game.play_game
     else
       @player = Player.new
