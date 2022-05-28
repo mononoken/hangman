@@ -43,7 +43,7 @@ class Game
   def request_player_guess
     guess = nil
     until valid_letter?(guess) || guess == 'save'
-      puts "Player input letter (or type 'save' to save):"
+      puts player_choice_instructions
       guess = gets.chomp.downcase
     end
     save_game if guess == 'save'
@@ -74,7 +74,7 @@ class Game
     play_round until end_game?
     announce_results
   end
-
+g
   def play_game
     run_game = true
     while run_game

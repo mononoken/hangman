@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'messages'
+
 # Constants for SaveName and LoadName.
 module SaveConstants
   SAVE_DIR = 'saves'
@@ -8,6 +10,7 @@ end
 # Allow game to save games and load from these saved games.
 module Saveable
   include SaveConstants
+  include Messages
 
   def save_game
     Dir.mkdir(SAVE_DIR) unless Dir.exist?(SAVE_DIR)
@@ -24,7 +27,7 @@ module Saveable
   end
 
   def prompt_load
-    puts "Type 'L' to load. Otherwise enter any key."
+    puts load_opt
     gets.chomp.downcase == 'l'
   end
 end
@@ -32,6 +35,7 @@ end
 # Represent save file name with proper path formatting.
 class SaveName
   include SaveConstants
+  include Messages
 
   def initialize(name = valid_name)
     @name = name
@@ -54,7 +58,7 @@ class SaveName
   end
 
   def request_name
-    puts "Please input save file name. Use only letters, numbers, or '_'."
+    puts save_instructions
     gets.chomp.downcase
   end
 
@@ -74,8 +78,7 @@ class SaveName
   def overwrite?(name)
     return if available_name?(name)
 
-    puts "Save name, '#{name}', has been previously used."
-    puts 'Do you wish to overwrite previous save? (y/n)'
+    puts save_exists_error(name)
     gets.chomp.downcase == 'y'
   end
 
@@ -101,7 +104,7 @@ class LoadName < SaveName
   end
 
   def request_name
-    puts 'Please pick a save file. Type the save file name as shown in the list.'
+    puts load_instructions
     gets.chomp.downcase
   end
 

@@ -35,6 +35,10 @@ module Messages
     ]
   end
 
+  def player_choice_instructions
+    "Player input letter (or type 'save' to save):"
+  end
+
   def announce_results
     if incorrect_limit?
       puts 'Game over.'
@@ -48,5 +52,24 @@ module Messages
 
   def end_game_msg
     'Thank you for playing!'
+  end
+
+  def load_opt
+    "Type 'L' to load. Otherwise enter any key."
+  end
+
+  def save_instructions
+    "Please input save file name. Use only letters, numbers, or '_'."
+  end
+
+  def load_instructions
+    'Please pick a save file. Type the save file name as shown in the list.'
+  end
+
+  def save_exists_error(name)
+    [
+      "Save name, '#{name}', has been previously used.",
+      'Do you wish to overwrite previous save? (y/n)'
+    ]
   end
 end
