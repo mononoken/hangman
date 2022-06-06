@@ -74,7 +74,7 @@ class Game
     play_round until end_game?
     announce_results
   end
-g
+
   def play_game
     run_game = true
     while run_game
