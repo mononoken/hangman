@@ -27,6 +27,8 @@ module Saveable
   end
 
   def prompt_load
+    return if Dir.glob("#{SAVE_DIR}/*").empty?
+
     puts load_opt
     gets.chomp.downcase == 'l'
   end
